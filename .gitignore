@@ -1,0 +1,5 @@
+# ignore main executable
+SolarSystem
+
+# ignore object files
+*.o
