@@ -3,3 +3,6 @@ SolarSystem
 
 # ignore object files
 *.o
+
+# ignore large asset folders
+/assets/models

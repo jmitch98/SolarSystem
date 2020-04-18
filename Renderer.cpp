@@ -54,7 +54,8 @@ void Init() {
                         reinterpret_cast<void*>(0));
   glEnableVertexAttribArray(0);
 
-  s = new Shader("shader.vert", "shader.frag");
+  s = new Shader("./assets/shaders/shader.vert",
+                 "./assets/shaders/shader.frag");
 }
 
 void DrawFrame() {
