@@ -1,6 +1,10 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
@@ -9,6 +13,7 @@
 
 #include <iostream>
 
+#include "Model.h"
 #include "Shader.h"
 
 const int SCREEN_WIDTH = 800;
@@ -22,7 +27,6 @@ namespace renderer {
  */
 extern SDL_Window* window;
 
-extern float vertices[];
 extern unsigned int VBO;
 extern unsigned int VAO;
 extern Shader* s;

@@ -6,13 +6,12 @@ namespace renderer {
  * Shader class for the renderer.
  */
 class Shader {
- private:
+ public:
   /**
    * The OpenGL shader ID.
    */
   unsigned int id;
 
- public:
   /**
    * Creates a new shader given the file location
    * of a vertex shader and a fragment shader.
