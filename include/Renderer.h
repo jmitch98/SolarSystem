@@ -31,6 +31,15 @@ extern unsigned int VBO;
 extern unsigned int VAO;
 extern Shader* s;
 
+// camera
+extern glm::vec3 cameraPos;
+extern glm::vec3 cameraFront;
+extern glm::vec3 cameraUp;
+
+// time tracking
+extern float deltaTime;
+extern float lastFrame;
+
 /**
  * Initializes SDL and OpenGL.
  */
