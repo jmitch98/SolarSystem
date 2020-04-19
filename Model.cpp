@@ -58,7 +58,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
       vertex.Normal = glm::vec3(0.0f, 0.0f, 0.0f);
     }
 
-    // TODO: texture coordinates
+    // TODO(mitchejp): texture coordinates
     vertex.TextureCoordinates = glm::vec2(0.0f, 0.0f);
 
     vertices.push_back(vertex);
@@ -72,7 +72,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
     }
   }
 
-  // TODO: process materials
+  // TODO(mitchejp): process materials
 
   return Mesh(vertices, indices, textures);
 }

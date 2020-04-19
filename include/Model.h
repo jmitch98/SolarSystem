@@ -18,7 +18,7 @@ namespace renderer {
  */
 class Model {
  public:
-  Model(const char* filePath);
+  explicit Model(const char* filePath);
 
   /**
    * Draws the model (and thus all meshes within it)
