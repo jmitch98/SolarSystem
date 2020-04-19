@@ -28,8 +28,12 @@ int main(int argc, char** argv) {
     const Uint8* keyboardState = SDL_GetKeyboardState(NULL);
     while (SDL_PollEvent(&e) != 0) {
       // conditions to quit program
-      if (e.type == SDL_QUIT || keyboardState[SDL_SCANCODE_ESCAPE])
+      if (e.type == SDL_QUIT || keyboardState[SDL_SCANCODE_ESCAPE]) {
         programEnd = true;
+      }
+      if (e.type == SDL_MOUSEMOTION) {
+        renderer::HandleMouseInput(e.motion.xrel, e.motion.yrel);
+      }
 
       UpdateKeyboardState(&e, &keyboardStatus);
     }

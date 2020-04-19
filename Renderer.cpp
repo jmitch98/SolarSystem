@@ -15,11 +15,7 @@ float vertices[] = {
     -0.5f, -0.5f, -0.5f, 0.5f,  -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  0.5f,
     0.5f,  0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  -0.5f};
 
-unsigned int indices[] = {
-    // note that we start from 0!
-    0, 1, 3,  // first triangle
-    1, 2, 3   // second triangle
-};
+unsigned int indices[] = {0, 1, 3, 1, 2, 3};
 
 unsigned int VBO;
 unsigned int VAO;
@@ -27,9 +23,16 @@ unsigned int EBO;
 Shader* s;
 
 // camera
-glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+// mouse
+bool firstMouse = true;
+float lastX = SCREEN_WIDTH / 2.0f;
+float lastY = SCREEN_HEIGHT / 2.0f;
+float yaw = -90.0f;
+float pitch = 0.0f;
 
 // time tracking
 float deltaTime = 0.0f;
@@ -59,6 +62,12 @@ void Init() {
   SDL_GLContext glContext = SDL_GL_CreateContext(window);
   if (!glContext) {
     std::cout << "Could not create OpenGL context for SDL: " << SDL_GetError()
+              << std::endl;
+  }
+
+  // set SDL to relative mouse mode
+  if (SDL_SetRelativeMouseMode(SDL_TRUE) < 0) {
+    std::cout << "Could not enable SDL relative mouse mode:" << SDL_GetError()
               << std::endl;
   }
 
@@ -95,7 +104,6 @@ void DrawFrame() {
 
   // the model matrix
   glm::mat4 model = glm::mat4(1.0f);
-  model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
   // the view matrix (and camera movement)
   glm::mat4 view;
@@ -103,8 +111,9 @@ void DrawFrame() {
 
   // the projection matrix
   glm::mat4 projection;
-  projection =
-      glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+  projection = glm::perspective(glm::radians(45.0f),
+                                (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
+                                0.1f, 100.0f);
 
   // send matrices to the shader
   int modelLoc = glGetUniformLocation(s->id, "model");
@@ -151,5 +160,27 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
     fclose(f);
     (*buffer)[length] = '\0';
   }
+}
+
+void HandleMouseInput(double xOffset, double yOffset) {
+  std::cout << "X: " << xOffset << " Y: " << yOffset << std::endl;
+
+  yOffset *= -1;
+  
+  float sensitivity = 0.05f;
+  xOffset *= sensitivity;
+  yOffset *= sensitivity;
+
+  yaw += xOffset;
+  pitch += yOffset;
+
+  if (pitch > 89.0f) pitch = 89.0f;
+  if (pitch < -89.0f) pitch = -89.0f;
+
+  glm::vec3 direction;
+  direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  direction.y = sin(glm::radians(pitch));
+  direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  cameraFront = glm::normalize(direction);
 }
 }  // namespace renderer

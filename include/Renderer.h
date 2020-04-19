@@ -36,6 +36,13 @@ extern glm::vec3 cameraPos;
 extern glm::vec3 cameraFront;
 extern glm::vec3 cameraUp;
 
+// mouse
+extern bool firstMouse;
+extern float lastX;
+extern float lastY;
+extern float yaw;
+extern float pitch;
+
 // time tracking
 extern float deltaTime;
 extern float lastFrame;
@@ -59,6 +66,11 @@ void Destroy();
  * Reads a text file into a buffer.
  */
 void ReadFileToBuffer(const char* filename, char** buffer);
+
+/**
+ * Handles mouse input each frame.
+ */
+void HandleMouseInput(double xOffset, double yOffset);
 }  // namespace renderer
 
 #endif
