@@ -21,6 +21,7 @@ unsigned int VBO;
 unsigned int VAO;
 unsigned int EBO;
 Shader* s;
+Model* m;
 
 // camera
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -79,22 +80,10 @@ void Init() {
               << std::endl;
   }
 
-  // gl testing
-  glGenVertexArrays(1, &VAO);
-  glBindVertexArray(VAO);
-  glGenBuffers(1, &VBO);
-  glGenBuffers(1, &EBO);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
-               GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                        reinterpret_cast<void*>(0));
-  glEnableVertexAttribArray(0);
-
   s = new Shader("./assets/shaders/shader.vert",
                  "./assets/shaders/shader.frag");
+
+  m = new Model("./assets/models/teapot.obj");
 }
 
 void DrawFrame() {
@@ -104,6 +93,8 @@ void DrawFrame() {
 
   // the model matrix
   glm::mat4 model = glm::mat4(1.0f);
+  model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
+  model = glm::translate(model, glm::vec3(0, -1.0f, 0));
 
   // the view matrix (and camera movement)
   glm::mat4 view;
@@ -111,9 +102,10 @@ void DrawFrame() {
 
   // the projection matrix
   glm::mat4 projection;
-  projection = glm::perspective(glm::radians(45.0f),
-                                (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
-                                0.1f, 100.0f);
+  projection = glm::perspective(
+      glm::radians(45.0f),
+      static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT),
+      0.1f, 100.0f);
 
   // send matrices to the shader
   int modelLoc = glGetUniformLocation(s->id, "model");
@@ -124,10 +116,7 @@ void DrawFrame() {
   glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
   glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-  // draw the square
-  glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
-  glBindVertexArray(0);
+  m->Draw(*s);
 
   // update time
   float currentFrame = SDL_GetTicks() / 1000.0f;
@@ -163,10 +152,8 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
 }
 
 void HandleMouseInput(double xOffset, double yOffset) {
-  std::cout << "X: " << xOffset << " Y: " << yOffset << std::endl;
-
   yOffset *= -1;
-  
+
   float sensitivity = 0.05f;
   xOffset *= sensitivity;
   yOffset *= sensitivity;
