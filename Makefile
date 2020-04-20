@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-Wall -g
 NAME=SolarSystem
 LIBS=-lSDL2 -lGLEW -lGL -lassimp
-IDIRS=-I"./include"
+IDIRS=-I"./include" -I"./deps"
 OBJECTS=Main.o Shader.o Model.o Mesh.o Renderer.o
 OBJDIR=obj
 

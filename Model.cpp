@@ -58,8 +58,15 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
       vertex.Normal = glm::vec3(0.0f, 0.0f, 0.0f);
     }
 
-    // TODO(mitchejp): texture coordinates
-    vertex.TextureCoordinates = glm::vec2(0.0f, 0.0f);
+    // texture coordinates
+    if (mesh->mTextureCoords[0]) {
+      glm::vec2 vec;
+      vec.x = mesh->mTextureCoords[0][i].x;
+      vec.y = mesh->mTextureCoords[0][i].y;
+      vertex.TextureCoordinates = vec;
+    } else {
+      vertex.TextureCoordinates = glm::vec2(0.0f, 0.0f);
+    }
 
     vertices.push_back(vertex);
   }

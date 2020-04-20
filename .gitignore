@@ -6,3 +6,4 @@ SolarSystem
 
 # ignore large asset folders
 /assets/models
+/assets/textures
