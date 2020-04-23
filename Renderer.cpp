@@ -113,6 +113,11 @@ void Init() {
     std::cout << "Failed to load texture" << std::endl;
   }
   stbi_image_free(data);
+
+  // set the earth texture
+  for (Mesh mesh : m->meshes) {
+    mesh.SetTexture(texture);
+  }
 }
 
 void DrawFrame() {
@@ -148,9 +153,6 @@ void DrawFrame() {
   glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
   glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
   glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, texture);
 
   m->Draw(*s);
 

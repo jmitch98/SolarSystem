@@ -35,7 +35,6 @@ void Model::processSceneNode(aiNode* node, const aiScene* scene) {
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
   std::vector<Vertex> vertices;
   std::vector<unsigned int> indices;
-  std::vector<Texture> textures;
 
   // process vertices, normals, and texture coordinates
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
@@ -79,9 +78,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
     }
   }
 
-  // TODO(mitchejp): process materials
-
-  return Mesh(vertices, indices, textures);
+  return Mesh(vertices, indices);
 }
 
 void Model::Draw(Shader shader) {

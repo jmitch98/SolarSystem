@@ -20,10 +20,6 @@ struct Vertex {
   glm::vec2 TextureCoordinates;
 };
 
-struct Texture {
-  unsigned int id;
-};
-
 class Mesh {
  private:
   /**
@@ -31,12 +27,11 @@ class Mesh {
    * and associated vertex array object
    * and element buffer object.
    */
-  unsigned int vbo, vao, ebo;
+  unsigned int vbo, vao, ebo, texture;
 
  public:
   std::vector<Vertex> vertices;
   std::vector<unsigned int> indices;
-  std::vector<Texture> textures;
 
   /**
    * Creates a new Mesh object.
@@ -44,14 +39,15 @@ class Mesh {
    * @param indices The indices of the mesh
    * @param textures The textures of the mesh
    */
-  Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-       std::vector<Texture> textures);
+  Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 
   /**
    * Draws the mesh.
    * @param shader The shader used to draw the mesh.
    */
   void Draw(Shader shader);
+
+  void SetTexture(unsigned int texture);
 };
 
 }  // namespace renderer

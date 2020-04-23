@@ -3,11 +3,9 @@
 #include <iostream>
 
 namespace renderer {
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-           std::vector<Texture> textures) {
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
   this->vertices = vertices;
   this->indices = indices;
-  this->textures = textures;
 
   glGenVertexArrays(1, &vao);
   glGenBuffers(1, &vbo);
@@ -42,7 +40,13 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
 
 void Mesh::Draw(Shader shader) {
   glBindVertexArray(vao);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture);
   glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
+}
+
+void Mesh::SetTexture(unsigned int texture) {
+  this->texture = texture;
 }
 }  // namespace renderer

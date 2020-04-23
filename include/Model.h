@@ -1,23 +1,25 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "Mesh.h"
-#include "Shader.h"
-
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
 #include <assimp/Importer.hpp>
 
+#include "Mesh.h"
 #include "Renderer.h"
+#include "Shader.h"
 
 namespace renderer {
-/**
- * Loads and creates a new model.
- * @param filePath The file location of the model.
- */
+
 class Model {
  public:
+  std::vector<Mesh> meshes;
+  
+  /**
+   * Loads and creates a new model.
+   * @param filePath The file location of the model.
+   */
   explicit Model(const char* filePath);
 
   /**
@@ -28,8 +30,6 @@ class Model {
   void Draw(Shader shader);
 
  private:
-  std::vector<Mesh> meshes;
-
   /**
    * Recursively processes each node in the assimp scene
    * @param node The node to process (usually starting with the root node)
