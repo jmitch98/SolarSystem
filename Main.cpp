@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "SolarSystem.h"
 
 struct KeyboardStatus {
   bool forward = false;
@@ -14,6 +15,8 @@ void UpdateKeyboardState(SDL_Event* e, KeyboardStatus* ks);
 int main(int argc, char** argv) {
   // init the SDL/OpenGL renderer
   renderer::Init();
+
+  solarsystem::Init();
 
   // main program loop
   bool programEnd = false;

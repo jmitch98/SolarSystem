@@ -36,6 +36,10 @@ extern glm::vec3 cameraPos;
 extern glm::vec3 cameraFront;
 extern glm::vec3 cameraUp;
 
+// view and projection matrices
+extern glm::mat4 view;
+extern glm::mat4 projection;
+
 // mouse
 extern bool firstMouse;
 extern float lastX;
@@ -71,6 +75,11 @@ void ReadFileToBuffer(const char* filename, char** buffer);
  * Handles mouse input each frame.
  */
 void HandleMouseInput(double xOffset, double yOffset);
+
+/**
+ * Creates an OpenGL texture and returns its ID.
+ */
+unsigned int CreateTexture(const char* texturePath);
 }  // namespace renderer
 
 #endif
