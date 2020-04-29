@@ -5,6 +5,18 @@ OrbitalBody::OrbitalBody(const char* modelPath) {
   this->model = new renderer::Model(modelPath);
 }
 
+OrbitalBody::OrbitalBody(const char* modelPath, float distanceFromParent,
+                         float orbitalVelocity, float rotationalVelocity,
+                         OrbitalBody* parent) {
+  this->model = new renderer::Model(modelPath);
+  this->distanceFromParent = distanceFromParent;
+  this->orbitalVelocity = orbitalVelocity;
+  this->rotationalVelocity = rotationalVelocity;
+  this->SetParent(parent);
+  this->rotation = glm::vec3(1.0f, 1.0f, 1.0f);
+  this->position = glm::vec3(distanceFromParent, 0.0f, 0.0f);
+}
+
 OrbitalBody::~OrbitalBody() { delete model; }
 
 void OrbitalBody::SetMeshTexture(unsigned int textureID, unsigned int meshID) {
@@ -21,24 +33,28 @@ void OrbitalBody::AddChild(OrbitalBody* orbitalBody) {
 
 void OrbitalBody::SetParent(OrbitalBody* orbitalBody) {
   parent = orbitalBody;
+  parent->AddChild(this);
 }
 
 void OrbitalBody::Draw(renderer::Shader shader) {
   renderer::view = glm::lookAt(renderer::cameraPos,
                                renderer::cameraPos + renderer::cameraFront,
                                renderer::cameraUp);
+
   renderer::projection = glm::perspective(
-      glm::radians(45.0f),
+      glm::radians(renderer::FOV),
       static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT),
       0.1f, 100.0f);
 
   glm::mat4 model = glm::mat4(1.0f);
-  
+
   if (parent == nullptr) {
     model = glm::translate(model, position);
   } else {
-    float posX = sin((SDL_GetTicks() / 1000.0f)) * 3.0f;
-    float posZ = cos((SDL_GetTicks() / 1000.0f)) * 3.0f;
+    float posX =
+        sin((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
+    float posZ =
+        cos((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
     position.x = posX;
     position.z = posZ;
     model = glm::translate(model, parent->position);
@@ -47,7 +63,8 @@ void OrbitalBody::Draw(renderer::Shader shader) {
 
   model = glm::rotate(
       model,
-      static_cast<float>(10 * (SDL_GetTicks() / 1000.0f)) * glm::radians(1.0f),
+      static_cast<float>(rotationalVelocity * (SDL_GetTicks() / 1000.0f)) *
+          glm::radians(1.0f),
       rotation);
   model = glm::scale(model, scale);
 

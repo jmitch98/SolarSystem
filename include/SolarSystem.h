@@ -4,6 +4,9 @@
 #include "OrbitalBody.h"
 #include "Renderer.h"
 
+#define AU 3.0f
+#define KM_TO_AU(km) km / 16819000.0f
+
 namespace solarsystem {
   extern OrbitalBody* sun;
 

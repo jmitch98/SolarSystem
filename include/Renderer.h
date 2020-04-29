@@ -16,8 +16,8 @@
 #include "Model.h"
 #include "Shader.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
 const int MAJOR_VERSION = 3;
 const int MINOR_VERSION = 1;
 
@@ -35,6 +35,7 @@ extern Shader* s;
 extern glm::vec3 cameraPos;
 extern glm::vec3 cameraFront;
 extern glm::vec3 cameraUp;
+extern float FOV;
 
 // view and projection matrices
 extern glm::mat4 view;

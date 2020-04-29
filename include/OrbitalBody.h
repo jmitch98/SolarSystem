@@ -3,12 +3,11 @@
 
 #include <vector>
 
+#include "Renderer.h"
+#include "Shader.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-
-#include "Renderer.h"
-#include "Shader.h"
 
 namespace solarsystem {
 class OrbitalBody {
@@ -16,8 +15,14 @@ class OrbitalBody {
   glm::vec3 position;
   glm::vec3 scale;
   glm::vec3 rotation;
+  float distanceFromParent;
+  float orbitalVelocity;
+  float rotationalVelocity;
 
   OrbitalBody(const char* modelPath);
+  OrbitalBody(const char* modelPath, float distanceFromParent,
+              float orbitalVelocity, float rotationalVelocity,
+              OrbitalBody* parent);
   ~OrbitalBody();
 
   void SetMeshTexture(unsigned int textureID, unsigned int meshID);
@@ -26,17 +31,12 @@ class OrbitalBody {
 
   void Draw(renderer::Shader shader);
 
-  void AddChild(OrbitalBody* orbitalBody);
-
   void SetParent(OrbitalBody* orbitalBody);
 
  private:
   OrbitalBody* parent = nullptr;
+  void AddChild(OrbitalBody* orbitalBody);
   std::vector<OrbitalBody*> children;
-  float apogee;
-  float parogee;
-  float orbitalVelocity;
-  float rotationalVelocity;
   renderer::Model* model;
 };
 }  // namespace solarsystem
