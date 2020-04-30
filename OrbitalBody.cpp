@@ -14,7 +14,6 @@ OrbitalBody::OrbitalBody(const char* modelPath, float distanceFromParent,
   this->rotationalVelocity = rotationalVelocity;
   this->SetParent(parent);
   this->rotation = glm::vec3(1.0f, 1.0f, 1.0f);
-  this->position = glm::vec3(distanceFromParent, 0.0f, 0.0f);
 }
 
 OrbitalBody::~OrbitalBody() { delete model; }
@@ -37,15 +36,6 @@ void OrbitalBody::SetParent(OrbitalBody* orbitalBody) {
 }
 
 void OrbitalBody::Draw(renderer::Shader shader) {
-  renderer::view = glm::lookAt(renderer::cameraPos,
-                               renderer::cameraPos + renderer::cameraFront,
-                               renderer::cameraUp);
-
-  renderer::projection = glm::perspective(
-      glm::radians(renderer::FOV),
-      static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT),
-      0.1f, 100.0f);
-
   glm::mat4 model = glm::mat4(1.0f);
 
   if (parent == nullptr) {
@@ -70,12 +60,7 @@ void OrbitalBody::Draw(renderer::Shader shader) {
 
   // send model matrix to the shader
   int modelLoc = glGetUniformLocation(shader.id, "model");
-  int viewLoc = glGetUniformLocation(shader.id, "view");
-  int projLoc = glGetUniformLocation(shader.id, "projection");
   glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-  glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(renderer::view));
-  glUniformMatrix4fv(projLoc, 1, GL_FALSE,
-                     glm::value_ptr(renderer::projection));
 
   this->model->Draw(shader);
 

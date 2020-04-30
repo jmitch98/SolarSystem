@@ -1,16 +1,17 @@
 #include "Renderer.h"
 #include "SolarSystem.h"
 
-struct KeyboardStatus {
+struct KeyboardMouseStatus {
   bool forward = false;
   bool backward = false;
   bool left = false;
   bool right = false;
+  bool rightMouseDown = false;
 };
 
-KeyboardStatus keyboardStatus;
+KeyboardMouseStatus keyboardMouseStatus;
 
-void UpdateKeyboardState(SDL_Event* e, KeyboardStatus* ks);
+void UpdateKeyboardState(SDL_Event* e, KeyboardMouseStatus* ks);
 
 int main(int argc, char** argv) {
   // init the SDL/OpenGL renderer
@@ -34,28 +35,47 @@ int main(int argc, char** argv) {
       if (e.type == SDL_QUIT || keyboardState[SDL_SCANCODE_ESCAPE]) {
         programEnd = true;
       }
-      if (e.type == SDL_MOUSEMOTION) {
+
+      if (e.type == SDL_MOUSEBUTTONDOWN &&
+          e.button.button == SDL_BUTTON_RIGHT) {
+        keyboardMouseStatus.rightMouseDown = true;
+      } else if (e.type == SDL_MOUSEBUTTONUP &&
+                 e.button.button == SDL_BUTTON_RIGHT) {
+        keyboardMouseStatus.rightMouseDown = false;
+      }
+
+      if (e.type == SDL_MOUSEMOTION && keyboardMouseStatus.rightMouseDown) {
         renderer::HandleMouseInput(e.motion.xrel, e.motion.yrel);
       }
 
-      UpdateKeyboardState(&e, &keyboardStatus);
+      if (e.type == SDL_MOUSEWHEEL) {
+        if (e.wheel.y == 1) {
+          renderer::cameraDistanceFromCenter -= 1.0f;
+        } else if (e.wheel.y == -1) {
+          renderer::cameraDistanceFromCenter += 1.0f;
+        }
+
+        renderer::HandleMouseInput(0.0f, 0.0f);
+      }
+
+      UpdateKeyboardState(&e, &keyboardMouseStatus);
     }
 
-    if (keyboardStatus.forward) {
+    if (keyboardMouseStatus.forward) {
       renderer::cameraPos += cameraSpeed * renderer::cameraFront;
     }
 
-    if (keyboardStatus.backward) {
+    if (keyboardMouseStatus.backward) {
       renderer::cameraPos -= cameraSpeed * renderer::cameraFront;
     }
 
-    if (keyboardStatus.left) {
+    if (keyboardMouseStatus.left) {
       renderer::cameraPos -= glm::normalize(glm::cross(renderer::cameraFront,
                                                        renderer::cameraUp)) *
                              cameraSpeed;
     }
 
-    if (keyboardStatus.right) {
+    if (keyboardMouseStatus.right) {
       renderer::cameraPos += glm::normalize(glm::cross(renderer::cameraFront,
                                                        renderer::cameraUp)) *
                              cameraSpeed;
@@ -68,7 +88,7 @@ int main(int argc, char** argv) {
   return EXIT_SUCCESS;
 }
 
-void UpdateKeyboardState(SDL_Event* e, KeyboardStatus* ks) {
+void UpdateKeyboardState(SDL_Event* e, KeyboardMouseStatus* ks) {
   // key down
   if (e->type == SDL_KEYDOWN) {
     SDL_Keycode code = e->key.keysym.sym;

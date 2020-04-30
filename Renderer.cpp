@@ -14,15 +14,11 @@ unsigned int texture;
 unsigned int moonTexture;
 
 // camera
-/*
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+float cameraDistanceFromCenter = 10.0f;
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, cameraDistanceFromCenter);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-*/
-glm::vec3 cameraPos = glm::vec3(0.0f, 20.0f, 0.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, -1.0f, 0.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 0.0f, -1.0f);
-float FOV = 90.0f;
+float FOV = 45.0f;
 
 // view and projection matrices
 glm::mat4 view;
@@ -90,6 +86,21 @@ void DrawFrame() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   s->useProgram();
 
+  view = glm::lookAt(renderer::cameraPos,
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               renderer::cameraUp);
+
+  projection = glm::perspective(
+      glm::radians(renderer::FOV),
+      static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT),
+      0.1f, 100.0f);
+
+  int viewLoc = glGetUniformLocation(s->id, "view");
+  int projLoc = glGetUniformLocation(s->id, "projection");
+  glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(renderer::view));
+  glUniformMatrix4fv(projLoc, 1, GL_FALSE,
+                     glm::value_ptr(renderer::projection));
+
   solarsystem::Draw(*s);
 
   // update time
@@ -128,6 +139,7 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
 
 void HandleMouseInput(double xOffset, double yOffset) {
   yOffset *= -1;
+  xOffset *= -1;
 
   float sensitivity = 0.05f;
   xOffset *= sensitivity;
@@ -140,10 +152,10 @@ void HandleMouseInput(double xOffset, double yOffset) {
   if (pitch < -89.0f) pitch = -89.0f;
 
   glm::vec3 direction;
-  direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-  direction.y = sin(glm::radians(pitch));
-  direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-  cameraFront = glm::normalize(direction);
+  direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch)) * cameraDistanceFromCenter;
+  direction.y = sin(glm::radians(pitch)) * cameraDistanceFromCenter;
+  direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch)) * cameraDistanceFromCenter;
+  cameraPos = direction;
 }
 
 unsigned int CreateTexture(const char* texturePath) {

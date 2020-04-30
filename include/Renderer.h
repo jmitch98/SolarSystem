@@ -32,6 +32,7 @@ extern unsigned int VAO;
 extern Shader* s;
 
 // camera
+extern float cameraDistanceFromCenter;
 extern glm::vec3 cameraPos;
 extern glm::vec3 cameraFront;
 extern glm::vec3 cameraUp;
