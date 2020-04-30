@@ -138,8 +138,8 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
 }
 
 void HandleMouseInput(double xOffset, double yOffset) {
-  yOffset *= -1;
-  xOffset *= -1;
+  //yOffset *= -1;
+  //xOffset *= -1;
 
   float sensitivity = 0.05f;
   xOffset *= sensitivity;
