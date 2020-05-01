@@ -13,7 +13,7 @@ OrbitalBody::OrbitalBody(const char* modelPath, float distanceFromParent,
   this->orbitalVelocity = orbitalVelocity;
   this->rotationalVelocity = rotationalVelocity;
   this->SetParent(parent);
-  this->rotation = glm::vec3(1.0f, 1.0f, 1.0f);
+  this->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 OrbitalBody::~OrbitalBody() { delete model; }

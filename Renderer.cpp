@@ -93,7 +93,7 @@ void DrawFrame() {
   projection = glm::perspective(
       glm::radians(renderer::FOV),
       static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT),
-      0.1f, 100.0f);
+      0.1f, 400.0f);
 
   int viewLoc = glGetUniformLocation(s->id, "view");
   int projLoc = glGetUniformLocation(s->id, "projection");
