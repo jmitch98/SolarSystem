@@ -12,6 +12,7 @@ solarsystem::OrbitalBody* earth;
 solarsystem::OrbitalBody* moon;
 unsigned int texture;
 unsigned int moonTexture;
+MODE programMode = SOLARSYSTEM;
 
 // camera
 float cameraDistanceFromCenter = 10.0f;
@@ -86,9 +87,14 @@ void DrawFrame() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   s->useProgram();
 
-  view = glm::lookAt(renderer::cameraPos,
-                               glm::vec3(0.0f, 0.0f, 0.0f),
-                               renderer::cameraUp);
+  glm::vec3 target;
+  if (programMode == SOLARSYSTEM) {
+    target = glm::vec3(0.0f, 0.0f, 0.0f);
+  } else {
+    target = glm::vec3(800.0f, 800.0f, 0.0f);
+  }
+
+  view = glm::lookAt(cameraPos, target, cameraUp);
 
   projection = glm::perspective(
       glm::radians(renderer::FOV),
@@ -97,9 +103,9 @@ void DrawFrame() {
 
   int viewLoc = glGetUniformLocation(s->id, "view");
   int projLoc = glGetUniformLocation(s->id, "projection");
-  glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(renderer::view));
+  glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
   glUniformMatrix4fv(projLoc, 1, GL_FALSE,
-                     glm::value_ptr(renderer::projection));
+                     glm::value_ptr(projection));
 
   solarsystem::Draw(*s);
 
@@ -138,8 +144,8 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
 }
 
 void HandleMouseInput(double xOffset, double yOffset) {
-  //yOffset *= -1;
-  //xOffset *= -1;
+  // yOffset *= -1;
+  // xOffset *= -1;
 
   float sensitivity = 0.05f;
   xOffset *= sensitivity;
@@ -151,10 +157,20 @@ void HandleMouseInput(double xOffset, double yOffset) {
   if (pitch > 89.0f) pitch = 89.0f;
   if (pitch < -89.0f) pitch = -89.0f;
 
+  float origin;
+
+  if (programMode == SOLARSYSTEM) {
+    origin = 0.0f;
+  } else {
+    origin = 800.0f;
+  }
+
   glm::vec3 direction;
-  direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch)) * cameraDistanceFromCenter;
-  direction.y = sin(glm::radians(pitch)) * cameraDistanceFromCenter;
-  direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch)) * cameraDistanceFromCenter;
+  direction.x = origin + cos(glm::radians(yaw)) * cos(glm::radians(pitch)) *
+                cameraDistanceFromCenter;
+  direction.y = origin + sin(glm::radians(pitch)) * cameraDistanceFromCenter;
+  direction.z = 0.0f + sin(glm::radians(yaw)) * cos(glm::radians(pitch)) *
+                cameraDistanceFromCenter;
   cameraPos = direction;
 }
 

@@ -22,6 +22,8 @@ const int MAJOR_VERSION = 3;
 const int MINOR_VERSION = 1;
 
 namespace renderer {
+  
+enum MODE {SOLARSYSTEM, COMPARISON};
 /**
  * The main render target.
  */
@@ -30,6 +32,7 @@ extern SDL_Window* window;
 extern unsigned int VBO;
 extern unsigned int VAO;
 extern Shader* s;
+extern MODE programMode;
 
 // camera
 extern float cameraDistanceFromCenter;

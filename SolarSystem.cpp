@@ -3,6 +3,7 @@
 namespace solarsystem {
 OrbitalBody* sun;
 OrbitalBody* earth;
+OrbitalBody* moon;
 OrbitalBody* mercury;
 OrbitalBody* venus;
 OrbitalBody* mars;
@@ -29,7 +30,8 @@ void Init() {
   float terrestrialScale = 0.25 * sunScale;
   mercury = new OrbitalBody("./assets/models/mercury.obj", KM_TO_AU(50400000),
                             KM_TO_AU(47.4f * simulationSpeed), 0.001f, sun);
-  mercury->scale = glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
+  mercury->scale =
+      glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int mercuryTexture =
       renderer::CreateTexture("./assets/textures/mercury.png");
   mercury->GetModel()->meshes[0].SetTexture(mercuryTexture);
@@ -37,7 +39,8 @@ void Init() {
   // venus
   venus = new OrbitalBody("./assets/models/venus.obj", KM_TO_AU(108000000),
                           KM_TO_AU(35.0f * simulationSpeed), 0.001f, sun);
-  venus->scale = glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
+  venus->scale =
+      glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int venusTexture =
       renderer::CreateTexture("./assets/textures/venus.png");
   venus->GetModel()->meshes[0].SetTexture(venusTexture);
@@ -45,7 +48,8 @@ void Init() {
   // earth
   earth = new OrbitalBody("./assets/models/earth.obj", KM_TO_AU(151000000),
                           KM_TO_AU(29.8f * simulationSpeed), 0.001f, sun);
-  earth->scale = glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
+  earth->scale =
+      glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int earthTexture =
       renderer::CreateTexture("./assets/textures/earth.png");
   earth->GetModel()->meshes[0].SetTexture(earthTexture);
@@ -60,16 +64,18 @@ void Init() {
 
   // jupiter
   float gasGiantScale = 0.5 * sunScale;
-  jupiter = new OrbitalBody("./assets/models/jupiter.obj", KM_TO_AU(776000000 / 2),
-                            KM_TO_AU(13.1 * simulationSpeed), 0.001f, sun);
+  jupiter =
+      new OrbitalBody("./assets/models/jupiter.obj", KM_TO_AU(776000000 / 2),
+                      KM_TO_AU(13.1 * simulationSpeed), 0.001f, sun);
   jupiter->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int jupiterTexture =
       renderer::CreateTexture("./assets/textures/jupiter.png");
   jupiter->GetModel()->meshes[0].SetTexture(jupiterTexture);
 
   // saturn
-  saturn = new OrbitalBody("./assets/models/Saturn.obj", KM_TO_AU(1500000000 / 2),
-                           KM_TO_AU(9.7 * simulationSpeed), 0.001f, sun);
+  saturn =
+      new OrbitalBody("./assets/models/Saturn.obj", KM_TO_AU(1500000000 / 2),
+                      KM_TO_AU(9.7 * simulationSpeed), 0.001f, sun);
   saturn->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int saturnTexture1 =
       renderer::CreateTexture("./assets/textures/Saturn_Planet.png");
@@ -80,21 +86,32 @@ void Init() {
   saturn->GetModel()->meshes[2].SetTexture(saturnTexture2);
 
   // uranus
-  uranus = new OrbitalBody("./assets/models/uranus.obj", KM_TO_AU(2960000000 / 2),
-                           KM_TO_AU(6.8 * simulationSpeed), 0.001f, sun);
+  uranus =
+      new OrbitalBody("./assets/models/uranus.obj", KM_TO_AU(2960000000 / 2),
+                      KM_TO_AU(6.8 * simulationSpeed), 0.001f, sun);
   uranus->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int uranusTexture =
       renderer::CreateTexture("./assets/textures/uranus.png");
   uranus->GetModel()->meshes[0].SetTexture(uranusTexture);
 
   // neptune
-  neptune = new OrbitalBody("./assets/models/neptune.obj", KM_TO_AU(4480000000 / 2),
-                           KM_TO_AU(6.8 * simulationSpeed), 0.001f, sun);
+  neptune =
+      new OrbitalBody("./assets/models/neptune.obj", KM_TO_AU(4480000000 / 2),
+                      KM_TO_AU(6.8 * simulationSpeed), 0.001f, sun);
   neptune->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int neptuneTexture =
       renderer::CreateTexture("./assets/textures/neptune.png");
   neptune->GetModel()->meshes[0].SetTexture(neptuneTexture);
+
+  // moon
+  moon = new OrbitalBody("./assets/models/moon.obj");
+  moon->position = glm::vec3(800.0f, 800.0f, 0.0f);
+  moon->rotation = glm::vec3(1.0f, 1.0f, 1.0f);
+  moon->scale = glm::vec3(sunScale, sunScale, sunScale);
+  unsigned int moonTexture =
+      renderer::CreateTexture("./assets/textures/moon.png");
+  moon->GetModel()->meshes[0].SetTexture(moonTexture);
 }
 
-void Draw(renderer::Shader shader) { sun->Draw(shader); }
+void Draw(renderer::Shader shader) { sun->Draw(shader); moon->Draw(shader); }
 }  // namespace solarsystem
