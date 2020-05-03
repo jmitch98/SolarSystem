@@ -72,6 +72,20 @@ int main(int argc, char** argv) {
         }
       }
 
+      if (e.type == SDL_KEYDOWN) {
+        SDL_Keycode code = e.key.keysym.sym;
+        switch (code) {
+          case SDLK_1: solarsystem::OB2 = solarsystem::compMercury; break;
+          case SDLK_2: solarsystem::OB2 = solarsystem::compVenus; break;
+          case SDLK_3: solarsystem::OB2 = solarsystem::compEarth; break;
+          case SDLK_4: solarsystem::OB2 = solarsystem::compMars; break;
+          case SDLK_5: solarsystem::OB2 = solarsystem::compJupiter; break;
+          case SDLK_6: solarsystem::OB2 = solarsystem::compSaturn; break;
+          case SDLK_7: solarsystem::OB2 = solarsystem::compUranus; break;
+          case SDLK_8: solarsystem::OB2 = solarsystem::compNeptune; break;
+        }
+      }
+
       UpdateKeyboardState(&e, &keyboardMouseStatus);
     }
 

@@ -16,6 +16,13 @@ OrbitalBody::OrbitalBody(const char* modelPath, float distanceFromParent,
   this->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
+OrbitalBody::OrbitalBody(OrbitalBody* ob) {
+  this->model = ob->GetModel();
+  this->rotation = ob->rotation;
+  this->scale = ob->scale;
+  this->rotationalVelocity = ob->rotationalVelocity;
+}
+
 OrbitalBody::~OrbitalBody() { delete model; }
 
 void OrbitalBody::SetMeshTexture(unsigned int textureID, unsigned int meshID) {
@@ -41,13 +48,13 @@ void OrbitalBody::Draw(renderer::Shader shader) {
   if (parent == nullptr) {
     model = glm::translate(model, position);
   } else {
+    model = glm::translate(model, parent->position);
     float posX =
         sin((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
     float posZ =
         cos((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
     position.x = posX;
     position.z = posZ;
-    model = glm::translate(model, parent->position);
     model = glm::translate(model, position);
   }
 

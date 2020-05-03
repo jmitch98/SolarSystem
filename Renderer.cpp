@@ -83,7 +83,7 @@ void Init() {
 }
 
 void DrawFrame() {
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   s->useProgram();
 
@@ -144,9 +144,6 @@ void ReadFileToBuffer(const char* filename, char** buffer) {
 }
 
 void HandleMouseInput(double xOffset, double yOffset) {
-  // yOffset *= -1;
-  // xOffset *= -1;
-
   float sensitivity = 0.05f;
   xOffset *= sensitivity;
   yOffset *= sensitivity;

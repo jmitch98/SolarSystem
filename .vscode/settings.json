@@ -2,6 +2,7 @@
   "files.associations": {
     "ostream": "cpp",
     "cmath": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "random": "cpp"
   }
 }

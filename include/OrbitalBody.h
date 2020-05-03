@@ -23,6 +23,7 @@ class OrbitalBody {
   OrbitalBody(const char* modelPath, float distanceFromParent,
               float orbitalVelocity, float rotationalVelocity,
               OrbitalBody* parent);
+  OrbitalBody(OrbitalBody* ob);
   ~OrbitalBody();
 
   void SetMeshTexture(unsigned int textureID, unsigned int meshID);
