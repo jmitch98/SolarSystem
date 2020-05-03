@@ -7,10 +7,10 @@ OBJECTS=Main.o Shader.o Model.o Mesh.o Renderer.o OrbitalBody.o SolarSystem.o
 OBJDIR=obj
 
 main: $(OBJECTS)
-	$(CC) $(CFLAGS) $(IDIRS) $(LIBS) $(OBJECTS) -o $(NAME)
+	$(CC) $(CFLAGS) $(IDIRS) $(OBJECTS) -o $(NAME) $(LIBS) 
 
 .cpp.o:
-	$(CC) $(CFLAGS) $(IDIRS) $(LIBS) -c $*.cpp
+	$(CC) $(CFLAGS) $(IDIRS) -c $*.cpp $(LIBS) 
 
 check:
 	python2 $$CPPLINT --filter=-legal,-build --extensions=hpp,cpp,c,h,cc ./include/*.h *.cpp *.hpp
