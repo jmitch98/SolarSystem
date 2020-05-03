@@ -19,11 +19,11 @@ class OrbitalBody {
   float orbitalVelocity;
   float rotationalVelocity;
 
-  OrbitalBody(const char* modelPath);
+  explicit OrbitalBody(const char* modelPath);
   OrbitalBody(const char* modelPath, float distanceFromParent,
               float orbitalVelocity, float rotationalVelocity,
               OrbitalBody* parent);
-  OrbitalBody(OrbitalBody* ob);
+  explicit OrbitalBody(OrbitalBody* ob);
   ~OrbitalBody();
 
   void SetMeshTexture(unsigned int textureID, unsigned int meshID);

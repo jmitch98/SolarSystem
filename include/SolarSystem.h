@@ -33,6 +33,8 @@ extern OrbitalBody* OB2;
 void Init();
 
 void Draw(renderer::Shader shader);
+
+void Destroy();
 }  // namespace solarsystem
 
 #endif

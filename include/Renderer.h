@@ -1,10 +1,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
@@ -15,6 +11,9 @@
 
 #include "Model.h"
 #include "Shader.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -22,8 +21,8 @@ const int MAJOR_VERSION = 3;
 const int MINOR_VERSION = 1;
 
 namespace renderer {
-  
-enum MODE {SOLARSYSTEM, COMPARISON};
+
+enum MODE { SOLARSYSTEM, COMPARISON };
 /**
  * The main render target.
  */

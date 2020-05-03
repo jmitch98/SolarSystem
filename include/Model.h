@@ -15,7 +15,7 @@ namespace renderer {
 class Model {
  public:
   std::vector<Mesh> meshes;
-  
+
   /**
    * Loads and creates a new model.
    * @param filePath The file location of the model.

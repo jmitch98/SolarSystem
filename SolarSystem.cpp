@@ -59,7 +59,8 @@ void Init() {
 
   // venus
   venus = new OrbitalBody("./assets/models/venus.obj", KM_TO_AU(108000000),
-                          KM_TO_AU(35.0f * simulationSpeed), KM_TO_AU(6.52 * simulationSpeed), sun);
+                          KM_TO_AU(35.0f * simulationSpeed),
+                          KM_TO_AU(6.52 * simulationSpeed), sun);
   venus->scale =
       glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int venusTexture =
@@ -145,9 +146,9 @@ void Init() {
   compUranus->scale = glm::vec3(10.5f * compBaseScale);
 
   // neptune
-  neptune =
-      new OrbitalBody("./assets/models/neptune.obj", KM_TO_AU(4480000000 / 2),
-                      KM_TO_AU(6.8 * simulationSpeed), KM_TO_AU(9650 * simulationSpeed), sun);
+  neptune = new OrbitalBody(
+      "./assets/models/neptune.obj", KM_TO_AU(4480000000 / 2),
+      KM_TO_AU(6.8 * simulationSpeed), KM_TO_AU(9650 * simulationSpeed), sun);
   neptune->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int neptuneTexture =
       renderer::CreateTexture("./assets/textures/neptune.png");
@@ -170,5 +171,27 @@ void Draw(renderer::Shader shader) {
   sun->Draw(shader);
   OB1->Draw(shader);
   OB2->Draw(shader);
+}
+
+void Destroy() {
+  delete sun;
+  delete moon;
+  delete mercury;
+  delete venus;
+  delete earth;
+  delete mars;
+  delete jupiter;
+  delete saturn;
+  delete uranus;
+  delete neptune;
+
+  delete compMercury;
+  delete compVenus;
+  delete compEarth;
+  delete compMars;
+  delete compJupiter;
+  delete compSaturn;
+  delete compUranus;
+  delete compNeptune;
 }
 }  // namespace solarsystem
