@@ -32,3 +32,7 @@ and move the mouse
 * To switch to the planet comparison mode, hit the TAB key
 
 * To switch out the planet next to Earth, use the number keys
+
+* To lower the simulation speed, hit the comma or "<" key
+
+* To raise the simuatlion speed, hit the period or ">" key

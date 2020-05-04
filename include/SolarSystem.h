@@ -17,6 +17,7 @@ extern OrbitalBody* jupiter;
 extern OrbitalBody* saturn;
 extern OrbitalBody* uranus;
 extern OrbitalBody* neptune;
+extern OrbitalBody* pluto;
 
 extern OrbitalBody* compMercury;
 extern OrbitalBody* compVenus;
@@ -28,6 +29,7 @@ extern OrbitalBody* compUranus;
 extern OrbitalBody* compNeptune;
 extern OrbitalBody* compMoon;
 extern OrbitalBody* compSun;
+extern OrbitalBody* compPluto;
 
 extern OrbitalBody* OB1;
 extern OrbitalBody* OB2;
