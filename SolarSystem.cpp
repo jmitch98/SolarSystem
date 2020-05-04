@@ -181,7 +181,6 @@ void Init() {
   unsigned int plutoTexture =
       renderer::CreateTexture("./assets/textures/pluto.png");
   pluto->GetModel()->meshes[0].SetTexture(plutoTexture);
-  
 
   compPluto = new OrbitalBody(pluto);
   compPluto->position = glm::vec3(805.0f, 800.0f, 0.0f);

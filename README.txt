@@ -10,7 +10,7 @@ and works in a Ubuntu 18.04 VirtualBox environment (same as the AutoGrader).
 The application relies on the following dependencies:
 
 1. SDL2 - For window viewing (sudo apt install libsdl2-dev)
-2. GLEW - GL extension wrangler library for safe loading of OpenGL) 
+2. GLEW - GL extension wrangler library for safe loading of OpenGL
   (sudo apt install libglew-dev)
 3. Assimp - For Model loading (sudo apt install libassimp-dev)
 4. OpenGL Mathematics - For matrix math and compatibility with OpenGL shaders
