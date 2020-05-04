@@ -82,6 +82,8 @@ int main(int argc, char** argv) {
           case SDLK_5: solarsystem::OB2 = solarsystem::compSaturn; break;
           case SDLK_6: solarsystem::OB2 = solarsystem::compUranus; break;
           case SDLK_7: solarsystem::OB2 = solarsystem::compNeptune; break;
+          case SDLK_8: solarsystem::OB2 = solarsystem::compMoon; break;
+          case SDLK_9: solarsystem::OB2 = solarsystem::compSun; break;
         }
       }
 

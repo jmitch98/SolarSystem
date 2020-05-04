@@ -26,6 +26,8 @@ extern OrbitalBody* compJupiter;
 extern OrbitalBody* compSaturn;
 extern OrbitalBody* compUranus;
 extern OrbitalBody* compNeptune;
+extern OrbitalBody* compMoon;
+extern OrbitalBody* compSun;
 
 extern OrbitalBody* OB1;
 extern OrbitalBody* OB2;

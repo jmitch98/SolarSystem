@@ -22,6 +22,8 @@ OrbitalBody* compJupiter;
 OrbitalBody* compSaturn;
 OrbitalBody* compUranus;
 OrbitalBody* compNeptune;
+OrbitalBody* compMoon;
+OrbitalBody* compSun;
 
 OrbitalBody* OB1;
 OrbitalBody* OB2;
@@ -31,6 +33,8 @@ const float simulationSpeed = 3600 * 24.0f;
 void Init() {
   // the sun
   const float sunScale = 0.005f;
+  float compBaseScale = 0.002f;
+
   sun = new OrbitalBody("./assets/models/sun.obj");
   sun->position = glm::vec3(0.0f, 0.0f, 0.0f);
   sun->rotation = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -39,6 +43,10 @@ void Init() {
   unsigned int sunTexture =
       renderer::CreateTexture("./assets/textures/sun.png");
   sun->GetModel()->meshes[0].SetTexture(sunTexture);
+
+  compSun = new OrbitalBody(sun);
+  compSun->position = glm::vec3(1200.0f, 800.0f, 0.0f);
+  compSun->scale = glm::vec3(compBaseScale * 285);
 
   // mercury
   float terrestrialScale = 0.25 * sunScale;
@@ -51,7 +59,6 @@ void Init() {
       renderer::CreateTexture("./assets/textures/mercury.png");
   mercury->GetModel()->meshes[0].SetTexture(mercuryTexture);
 
-  float compBaseScale = 0.002f;
   compMercury = new OrbitalBody(mercury);
   compMercury->position = glm::vec3(805.0f, 800.0f, 0.0f);
   compMercury->scale = glm::vec3(compBaseScale);
@@ -165,6 +172,10 @@ void Init() {
   unsigned int moonTexture =
       renderer::CreateTexture("./assets/textures/moon.png");
   moon->GetModel()->meshes[0].SetTexture(moonTexture);
+
+  compMoon = new OrbitalBody(moon);
+  compMoon->position = glm::vec3(800.0f, 800.0f, 0.0f);
+  compMoon->scale = glm::vec3(0.712 * compBaseScale);
 }
 
 void Draw(renderer::Shader shader) {
