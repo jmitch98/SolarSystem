@@ -8,10 +8,6 @@
 namespace renderer {
 SDL_Window* window;
 Shader* s;
-solarsystem::OrbitalBody* earth;
-solarsystem::OrbitalBody* moon;
-unsigned int texture;
-unsigned int moonTexture;
 MODE programMode = SOLARSYSTEM;
 
 // camera
@@ -118,8 +114,7 @@ void DrawFrame() {
 }
 
 void Destroy() {
-  delete s;
-  delete earth;
+  solarsystem::Destroy();
   SDL_DestroyWindow(window);
   SDL_Quit();
 }

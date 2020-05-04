@@ -47,6 +47,9 @@ class Mesh {
    */
   void Draw(Shader shader);
 
+  /**
+   * Sets the texture associated with this mesh.
+   */
   void SetTexture(unsigned int texture);
 };
 

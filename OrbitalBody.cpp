@@ -23,7 +23,12 @@ OrbitalBody::OrbitalBody(OrbitalBody* ob) {
   this->rotationalVelocity = ob->rotationalVelocity;
 }
 
-OrbitalBody::~OrbitalBody() { delete model; }
+OrbitalBody::~OrbitalBody() {
+  delete model;
+  for (OrbitalBody* ob : children) {
+    delete ob;
+  }
+}
 
 void OrbitalBody::SetMeshTexture(unsigned int textureID, unsigned int meshID) {
   model->meshes[meshID].SetTexture(textureID);

@@ -175,23 +175,5 @@ void Draw(renderer::Shader shader) {
 
 void Destroy() {
   delete sun;
-  delete moon;
-  delete mercury;
-  delete venus;
-  delete earth;
-  delete mars;
-  delete jupiter;
-  delete saturn;
-  delete uranus;
-  delete neptune;
-
-  delete compMercury;
-  delete compVenus;
-  delete compEarth;
-  delete compMars;
-  delete compJupiter;
-  delete compSaturn;
-  delete compUranus;
-  delete compNeptune;
 }
 }  // namespace solarsystem

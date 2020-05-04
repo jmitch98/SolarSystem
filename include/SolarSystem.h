@@ -30,10 +30,20 @@ extern OrbitalBody* compNeptune;
 extern OrbitalBody* OB1;
 extern OrbitalBody* OB2;
 
+/**
+ * Inits the solar system objects.
+ */
 void Init();
 
+/**
+ * Calls draw on all the solar system bodies by traversing
+ * the "scene graph" starting with the sun.
+ */
 void Draw(renderer::Shader shader);
 
+/**
+ * Frees all the memory the solar system allocated.
+ */
 void Destroy();
 }  // namespace solarsystem
 

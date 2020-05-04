@@ -58,17 +58,17 @@ int main(int argc, char** argv) {
         renderer::HandleMouseInput(0.0f, 0.0f);
       }
 
-      if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e) {
+      if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_TAB) {
         renderer::yaw = -90.0f;
         renderer::pitch = 0.0f;
         if (renderer::programMode == renderer::MODE::SOLARSYSTEM) {
           renderer::programMode = renderer::MODE::COMPARISON;
-          std::cout << "Switched to comparison mode" << std::endl;
+          renderer::cameraDistanceFromCenter = 10.0f;
           renderer::cameraPos = glm::vec3(800.0f, 800.0f, 10.0f);
         } else {
           renderer::programMode = renderer::MODE::SOLARSYSTEM;
+          renderer::cameraDistanceFromCenter = 10.0f;
           renderer::cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
-          std::cout << "Switched to solar system mode" << std::endl;
         }
       }
 
@@ -77,12 +77,11 @@ int main(int argc, char** argv) {
         switch (code) {
           case SDLK_1: solarsystem::OB2 = solarsystem::compMercury; break;
           case SDLK_2: solarsystem::OB2 = solarsystem::compVenus; break;
-          case SDLK_3: solarsystem::OB2 = solarsystem::compEarth; break;
-          case SDLK_4: solarsystem::OB2 = solarsystem::compMars; break;
-          case SDLK_5: solarsystem::OB2 = solarsystem::compJupiter; break;
-          case SDLK_6: solarsystem::OB2 = solarsystem::compSaturn; break;
-          case SDLK_7: solarsystem::OB2 = solarsystem::compUranus; break;
-          case SDLK_8: solarsystem::OB2 = solarsystem::compNeptune; break;
+          case SDLK_3: solarsystem::OB2 = solarsystem::compMars; break;
+          case SDLK_4: solarsystem::OB2 = solarsystem::compJupiter; break;
+          case SDLK_5: solarsystem::OB2 = solarsystem::compSaturn; break;
+          case SDLK_6: solarsystem::OB2 = solarsystem::compUranus; break;
+          case SDLK_7: solarsystem::OB2 = solarsystem::compNeptune; break;
         }
       }
 
