@@ -27,6 +27,10 @@ To build, run the makefile in the root directory of the source code.
 
 ========== Usage ==========
 
+Note on running the application: It may take a few moments for anything to
+appear on the screen. The textures from NASA are quite large, and all are loaded
+in before anything is drawn to the screen.
+
 * To move pivot the camera around the center of the scene, right-click
 and move the mouse
 
