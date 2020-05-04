@@ -6,6 +6,12 @@ A 3D solar system viewer and planet comparison application written in OpenGL
 
 The code was written in a Fedora Linux environment, but compiles
 and works in a Ubuntu 18.04 VirtualBox environment (same as the AutoGrader).
+If you are using VirtualBox (or potentially another VM), the mouse/camera
+controls might be finnicky. I was eventually able to get this to clear
+up by messing around with entering/exiting full screen in VirtualBox.
+
+Note on shaders: The shaders use shader model 3.00 es (same as the slides).
+They appear to work in the 18.04 VM, but if there are problems, please let me know.
 
 The application relies on the following dependencies:
 
@@ -18,9 +24,6 @@ The application relies on the following dependencies:
 5. STB_IMAGE - For texture loading (header only; shipped with source)
 
 To build, run the makefile in the root directory of the source code.
-
-Note on shaders: The shaders use shader model 3.00 es (same as the slides).
-They appear to work in the 18.04 VM, but if there are problems, please let me know.
 
 ========== Usage ==========
 
