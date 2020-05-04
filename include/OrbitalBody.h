@@ -18,6 +18,7 @@ class OrbitalBody {
   float distanceFromParent;
   float orbitalVelocity;
   float rotationalVelocity;
+  bool sideRotation = false;
 
   /**
    * Creates a brand new orbital body with no parents or

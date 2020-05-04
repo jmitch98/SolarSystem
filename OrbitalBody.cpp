@@ -1,5 +1,7 @@
 #include "OrbitalBody.h"
 
+#include "SolarSystem.h"
+
 namespace solarsystem {
 OrbitalBody::OrbitalBody(const char* modelPath) {
   this->model = new renderer::Model(modelPath);
@@ -21,6 +23,7 @@ OrbitalBody::OrbitalBody(OrbitalBody* ob) {
   this->rotation = ob->rotation;
   this->scale = ob->scale;
   this->rotationalVelocity = ob->rotationalVelocity;
+  this->sideRotation = ob->sideRotation;
 }
 
 OrbitalBody::~OrbitalBody() {
@@ -54,18 +57,29 @@ void OrbitalBody::Draw(renderer::Shader shader) {
     model = glm::translate(model, position);
   } else {
     model = glm::translate(model, parent->position);
-    float posX =
-        sin((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
-    float posZ =
-        cos((SDL_GetTicks() / 1000.0f) * orbitalVelocity) * distanceFromParent;
+    float posX = sin((SDL_GetTicks() / 1000.0f) *
+                     KM_TO_AU(orbitalVelocity * simulationSpeed *
+                              simulationSpeedMultiplier)) *
+                 distanceFromParent;
+    float posZ = cos((SDL_GetTicks() / 1000.0f) *
+                     KM_TO_AU(orbitalVelocity * simulationSpeed *
+                              simulationSpeedMultiplier)) *
+                 distanceFromParent;
     position.x = posX;
     position.z = posZ;
     model = glm::translate(model, position);
   }
 
+  if (sideRotation) {
+    model =
+        glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+  }
+
   model = glm::rotate(
       model,
-      static_cast<float>(rotationalVelocity * (SDL_GetTicks() / 1000.0f)) *
+      static_cast<float>(KM_TO_AU(rotationalVelocity * simulationSpeed *
+                                  simulationSpeedMultiplier) *
+                         (SDL_GetTicks() / 1000.0f)) *
           glm::radians(1.0f),
       rotation);
   model = glm::scale(model, scale);

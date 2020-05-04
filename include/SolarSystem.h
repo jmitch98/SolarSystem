@@ -32,6 +32,9 @@ extern OrbitalBody* compSun;
 extern OrbitalBody* OB1;
 extern OrbitalBody* OB2;
 
+extern float simulationSpeed;
+extern float simulationSpeedMultiplier;
+
 /**
  * Inits the solar system objects.
  */

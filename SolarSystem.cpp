@@ -28,7 +28,8 @@ OrbitalBody* compSun;
 OrbitalBody* OB1;
 OrbitalBody* OB2;
 
-const float simulationSpeed = 3600 * 24.0f;
+float simulationSpeedMultiplier = 1.0f;
+float simulationSpeed = 3600 * 24.0f;
 
 void Init() {
   // the sun
@@ -51,8 +52,8 @@ void Init() {
   // mercury
   float terrestrialScale = 0.25 * sunScale;
   mercury = new OrbitalBody("./assets/models/mercury.obj", KM_TO_AU(50400000),
-                            KM_TO_AU(47.4f * simulationSpeed),
-                            KM_TO_AU(10.892f * simulationSpeed), sun);
+                            172.8,
+                            10.892, sun);
   mercury->scale =
       glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int mercuryTexture =
@@ -66,8 +67,8 @@ void Init() {
 
   // venus
   venus = new OrbitalBody("./assets/models/venus.obj", KM_TO_AU(108000000),
-                          KM_TO_AU(35.0f * simulationSpeed),
-                          KM_TO_AU(6.52 * simulationSpeed), sun);
+                          126.072,
+                          6.52, sun);
   venus->scale =
       glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int venusTexture =
@@ -81,8 +82,8 @@ void Init() {
 
   // earth
   earth = new OrbitalBody("./assets/models/earth.obj", KM_TO_AU(151000000),
-                          KM_TO_AU(29.8f * simulationSpeed),
-                          KM_TO_AU(1609.3 * simulationSpeed), sun);
+                          28.08,
+                          1609.3, sun);
   earth->scale =
       glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int earthTexture =
@@ -97,8 +98,8 @@ void Init() {
 
   // mars
   mars = new OrbitalBody("./assets/models/mars.obj", KM_TO_AU(217000000),
-                         KM_TO_AU(24.1 * simulationSpeed),
-                         KM_TO_AU(868 * simulationSpeed), sun);
+                         86.4,
+                         868, sun);
   mars->scale = glm::vec3(terrestrialScale, terrestrialScale, terrestrialScale);
   unsigned int marsTexture =
       renderer::CreateTexture("./assets/textures/mars.png");
@@ -112,7 +113,7 @@ void Init() {
   float gasGiantScale = 0.5 * sunScale;
   jupiter = new OrbitalBody(
       "./assets/models/jupiter.obj", KM_TO_AU(776000000 / 2),
-      KM_TO_AU(13.1 * simulationSpeed), KM_TO_AU(43000 * simulationSpeed), sun);
+      47.16, 43000, sun);
   jupiter->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int jupiterTexture =
       renderer::CreateTexture("./assets/textures/jupiter.png");
@@ -125,7 +126,7 @@ void Init() {
   // saturn
   saturn = new OrbitalBody(
       "./assets/models/Saturn.obj", KM_TO_AU(1500000000 / 2),
-      KM_TO_AU(9.7 * simulationSpeed), KM_TO_AU(35500 * simulationSpeed), sun);
+      34.848, 35500, sun);
   saturn->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int saturnTexture1 =
       renderer::CreateTexture("./assets/textures/Saturn_Planet.png");
@@ -142,11 +143,13 @@ void Init() {
   // uranus
   uranus = new OrbitalBody(
       "./assets/models/uranus.obj", KM_TO_AU(2960000000 / 2),
-      KM_TO_AU(6.8 * simulationSpeed), KM_TO_AU(24500 * simulationSpeed), sun);
+      24.48, 24500, sun);
   uranus->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int uranusTexture =
       renderer::CreateTexture("./assets/textures/uranus.png");
   uranus->GetModel()->meshes[0].SetTexture(uranusTexture);
+  uranus->sideRotation = true;
+  uranus->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
 
   compUranus = new OrbitalBody(uranus);
   compUranus->position = glm::vec3(810.0f, 800.0f, 0.0f);
@@ -155,7 +158,7 @@ void Init() {
   // neptune
   neptune = new OrbitalBody(
       "./assets/models/neptune.obj", KM_TO_AU(4480000000 / 2),
-      KM_TO_AU(6.8 * simulationSpeed), KM_TO_AU(9650 * simulationSpeed), sun);
+      24.48, 9650, sun);
   neptune->scale = glm::vec3(gasGiantScale, gasGiantScale, gasGiantScale);
   unsigned int neptuneTexture =
       renderer::CreateTexture("./assets/textures/neptune.png");
@@ -166,9 +169,9 @@ void Init() {
   compNeptune->scale = glm::vec3(10.02f * compBaseScale);
 
   // moon
-  moon = new OrbitalBody("./assets/models/moon.obj", KM_TO_AU(45000000),
-                         KM_TO_AU(100 * simulationSpeed), 0.001f, earth);
-  moon->scale = glm::vec3(terrestrialScale);
+  moon = new OrbitalBody("./assets/models/moon.obj", KM_TO_AU(15000000),
+                         3.492, 3.6792, earth);
+  moon->scale = glm::vec3(terrestrialScale * 0.3);
   unsigned int moonTexture =
       renderer::CreateTexture("./assets/textures/moon.png");
   moon->GetModel()->meshes[0].SetTexture(moonTexture);

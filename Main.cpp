@@ -84,6 +84,16 @@ int main(int argc, char** argv) {
           case SDLK_7: solarsystem::OB2 = solarsystem::compNeptune; break;
           case SDLK_8: solarsystem::OB2 = solarsystem::compMoon; break;
           case SDLK_9: solarsystem::OB2 = solarsystem::compSun; break;
+          case SDLK_PERIOD:
+            if (solarsystem::simulationSpeedMultiplier * 2 <= 64) {
+              solarsystem::simulationSpeedMultiplier *= 2;
+            }
+            break;
+          case SDLK_COMMA:
+            if (solarsystem::simulationSpeedMultiplier / 2 >= 0.0625) {
+              solarsystem::simulationSpeedMultiplier /= 2;
+            }
+            break;
         }
       }
 
