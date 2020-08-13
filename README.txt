@@ -1,5 +1,3 @@
-Name: James Mitchell
-
 A 3D solar system viewer and planet comparison application written in OpenGL
 
 ========== Build Instructions ==========
